@@ -10,7 +10,6 @@ exports.triggerNotifications = async () => {
       const budgets = await Budget.find({ userId: user._id }); 
       
       // console.log(expenses)
-     
       const now = new Date();
       // Set the time for today to midnight (00:00:00.000)
       now.setHours(0, 0, 0, 0);
@@ -27,7 +26,7 @@ exports.triggerNotifications = async () => {
 
       if (recentExpenses.length === 0) {
         // console.log("##recentExpenses", recentExpenses)
-        console.log(`[NOTIFY] User ${user._id} has not logged any expenses for the last 5+ days.`);
+        console.log(`[NOTIFY] User ${user._id} :: ${user.name} has not logged any expenses for the last 5+ days.`);
 
         //call mock api 
         await sendMockNotification(
@@ -46,7 +45,7 @@ exports.triggerNotifications = async () => {
             const totalSpent = categoryExpenses.reduce((total, expense) => total + expense.amount, 0);
 
             if (totalSpent > category.limit) {
-              console.log(`[NOTIFY] User ${user._id} overspent in category "${category.name}". Spent: ${totalSpent}, Limit: ${category.limit}`);
+              console.log(`[NOTIFY] User ${user._id}  ${user.name} overspent in category "${category.name}". Spent: ${totalSpent}, Limit: ${category.limit}`);
               //call mock api 
               await sendMockNotification(
                 user._id,

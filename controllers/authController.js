@@ -78,6 +78,6 @@ exports.simulateOtp = (req, res) => {
   const { phoneOrEmail } = req.body;
   const otp = Math.floor(100000 + Math.random() * 900000);
   console.log(`OTP for ${phoneOrEmail}: ${otp}`);
-  res.json({ message: 'OTP sent (mocked)', otp });
+  res.json({ message: `OTP sent (mocked) for user details: ${phoneOrEmail}`, otp });
 };
 

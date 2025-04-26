@@ -19,7 +19,8 @@ const categorizeExpense = (notes) => {
   for (let category in categories) {
     for (let keyword of categories[category]) {
       if (notesLower.includes(keyword)) {
-        return category; // Return the matching category
+        console.log("##categorized expense...", category)
+        return category; 
       }
     }
   }
@@ -74,6 +75,7 @@ exports.updateExpense = async (req, res) => {
     );
   
     //record ledger log for update operation
+    // console.log("##expense", expense)
     await Ledger.create({
       userId,
       operation: 'update',
@@ -107,8 +109,10 @@ exports.getExpenses = async (req, res) => {
 exports.deleteExpense = async (req, res) => {
   try {
     const expense = await Expense.findByIdAndDelete(req.params.id);
+    const userId = req.user._id;
     
     //record ledger log for delete operation
+    // console.log("###expense", expense)
     await Ledger.create({
       userId,
       operation: 'delete',
