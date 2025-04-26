@@ -3,9 +3,10 @@ const router = express.Router();
 const { createExpense, getExpenses, deleteExpense, updateExpense } = require('../controllers/expenseController');
 const { protect } = require('../middleware/authMiddleware');
 
-router.post('/', protect, createExpense); // Protected route
-router.put('/:id', protect, updateExpense); // Protected route for updating
-router.get('/', protect, getExpenses); // Protected route
-router.delete('/:id', protect, deleteExpense); // Protected route
+//for expense crud operation
+router.post('/', protect, createExpense); 
+router.get('/', protect, getExpenses); 
+router.put('/:id', protect, updateExpense);
+router.delete('/:id', protect, deleteExpense); 
 
 module.exports = router;

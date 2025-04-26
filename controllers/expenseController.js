@@ -1,7 +1,6 @@
 const Expense = require('../models/Expense');
 const Ledger = require('../models/Ledger');
 
-// Create a new expense
 
 const categorizeExpense = (notes) => {
   // Define a list of categories and keywords for each category
@@ -28,13 +27,13 @@ const categorizeExpense = (notes) => {
   return 'Miscellaneous'; // Default category if no match found
 };
 
-
+// Create a new expense
 exports.createExpense = async (req, res) => {
   const { amount, category, date, tags, notes } = req.body;
   const userId = req.user._id;
-
-  const derivedCategory = category || categorizeExpense(notes);
-
+ 
+  //auto-categorization of expenses based on input patterns
+  const derivedCategory = category || categorizeExpense(notes); 
   try {
     const expense = new Expense({
       userId,
@@ -47,6 +46,7 @@ exports.createExpense = async (req, res) => {
 
     await expense.save();
 
+    //record ledger log for create operation
     await Ledger.create({
       userId,
       operation: 'create',
@@ -72,7 +72,8 @@ exports.updateExpense = async (req, res) => {
       { amount, category, date, tags, notes },
       { new: true, runValidators: true }
     );
-
+  
+    //record ledger log for update operation
     await Ledger.create({
       userId,
       operation: 'update',
@@ -107,6 +108,7 @@ exports.deleteExpense = async (req, res) => {
   try {
     const expense = await Expense.findByIdAndDelete(req.params.id);
     
+    //record ledger log for delete operation
     await Ledger.create({
       userId,
       operation: 'delete',

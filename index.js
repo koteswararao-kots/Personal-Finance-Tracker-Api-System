@@ -30,10 +30,10 @@ app.use('/api/budgets', budgetRoutes);
 app.use('/api/score', scoreRoutes);
 app.use('/api/ledger', ledgerRoutes);
 
-// Notification cron job: runs every hour
+// Notification cron job: runs every minute
 cron.schedule('* * * * *', triggerNotifications);
 
-// Start server
+// Start server on port defined in env 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
