@@ -33,7 +33,7 @@ app.use('/api/ledger', ledgerRoutes);
 // Notification cron job: runs every minute
 cron.schedule('* * * * *', triggerNotifications);
 
-// Start server on port defined in env 
+// Start server on port defined in env  
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

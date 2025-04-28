@@ -39,8 +39,12 @@ exports.generateUserScore = async (req, res) => {
 
     // 2. Frequency of usage
     const activeDays = new Set(expenses.map((expense) => new Date(expense.date).getDate()));
-    const totalDaysInMonth = new Date(`${month}-01`).getDate();
-    const frequencyUsage = ((activeDays.size / totalDaysInMonth) * 100) * 0.3; // Scaled to 30% max
+    // const totalDaysInMonth = new Date(`${month}-01`).getDate();
+    const totalDaysInMonth = new Date(`${month}-01`);
+    totalDaysInMonth.setMonth(totalDaysInMonth.getMonth() + 1);
+    totalDaysInMonth.setDate(0);
+    const  days = totalDaysInMonth.getDate();
+    const frequencyUsage = ((activeDays.size / days) * 100) * 0.3; // Scaled to 30% max
 
     // 3. Expense tracking discipline
     const totalExpenses = expenses.length;
