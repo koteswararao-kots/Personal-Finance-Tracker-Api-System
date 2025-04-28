@@ -33,7 +33,7 @@ Update your `.env` file:
 
 ### Run the Project
 
-- npm run dev
+- npm start
 
 
 ### Core Functionalities & logic explanations
